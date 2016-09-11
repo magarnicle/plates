@@ -8,12 +8,6 @@ CREATE TABLE `message` (
   PRIMARY KEY (`idmessage`),
   UNIQUE KEY `idmessage_UNIQUE` (`idmessage`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
-CREATE TABLE `names` (
-  `idnames` int(11) NOT NULL,
-  `name` varchar(225) DEFAULT NULL,
-  `article` varchar(2) DEFAULT NULL,
-  PRIMARY KEY (`idnames`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE `plate` (
   `idplate` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(255) DEFAULT NULL,
