@@ -7,6 +7,7 @@
 var message = "";
 var plateFound = false;
 
+//Validate plate against database as user types
 $(document).ready(function(){  
     $("#plate").keyup(function(){ 
         validate_plate($("#plate").val());
@@ -16,17 +17,21 @@ $(document).ready(function(){
 
 });
 
+//Check for new messages every few seconds
 $(document).ready(function(){
 	//Do a first check, then at intervals after that
 	checkForMessages();
+	//5 seconds
    setInterval(checkForMessages, 5*1000);   
 });
 
+//When changing user, check for new messages straight away
 $(document).ready(function(){
 	//Reset when we change user
 	$("#user").change(function(){checkForMessages();})
 });
 
+//Check if the user has done enough to enable the send button
 $(document).ready(function(){  
     $("[type='button']").click(function(){
 		if (this.id != 'send')
@@ -41,6 +46,7 @@ $(document).ready(function(){
 
 });
 
+//See if the user has typed in a plate that exists
 function ajax_search(){
 	
   var name_val = "";
@@ -71,6 +77,7 @@ function ajax_search(){
   }}
 }
 
+//Check that the plate includes only letters and numbers
 function validate_plate(plate){
 	if (plate.toUpperCase().match(/[A-Z|0-9]+/g) == null && plate.length > 0){
 			$("#search_results").html("Use letters and numbers only.");
@@ -83,6 +90,7 @@ function validate_plate(plate){
 	
 }
 
+//Set the message and change the button colours when a user clicks on mone
 function message_button(button){
 	var buttons = $("[type='button']")
 	for (var i = 0; i < buttons.length; i++) {
@@ -93,17 +101,19 @@ function message_button(button){
 	message = button.value;
 	}
 }
- 
+
+//Enable the send button when appropriate
 function canSend(){
 	$("send").disabled = !(plateFound && message != "");
 }
 
+//Send the message
 function send(){
 	var plate_val = "";
   plate_val=$("#plate").val(); 
   var user_val = "";
   user_val = $("#user").val();
-	  $.ajax({url: '/sender.php', data: {user : user_val, plate : plate_val, message : message},
+	  $.ajax({url: '/sender.php', data: {user : user_val, plate : plate_valtoUpperCase(), message : message},
   success: (function(data){
    
   
@@ -115,7 +125,7 @@ function send(){
   dataType:'text', type: 'POST'});
 }
 
-
+//See if we have new messages and set the inbox count accordingly
 function checkForMessages(){  
   var user_val = "";
   user_val = $("#user").val();
