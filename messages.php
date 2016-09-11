@@ -3,7 +3,7 @@
 //INPUT
 
 // define variables and set to empty values
-$user;
+$user = "";
 
 
 
@@ -11,6 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $user = test_input($_POST["user"]);
 }
 
+//Clean the input data
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
@@ -28,8 +29,9 @@ try {
     $conn = new PDO("mysql:host=$servername;dbname=plates", $username, $password);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	
-	$stmt = $conn->prepare("SELECT COUNT(message) FROM message m JOIN plate p ON m.plate = p.plate WHERE p.user_name = '" . $user . "' and is_read = 0");
+
+	//Find the number of unread messages for this user	
+    $stmt = $conn->prepare("SELECT COUNT(message) FROM message m JOIN plate p ON m.plate = p.plate WHERE p.user_name = '" . $user . "' and is_read = 0");
     $stmt->execute();
 
 	//Return the number of messages
