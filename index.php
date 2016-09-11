@@ -49,19 +49,19 @@ $(document).ready(function(){
 //See if the user has typed in a plate that exists
 function ajax_search(){
 	
-  var name_val = "";
-  name_val=$("#plate").val(); 
-  if (name_val == "")
+  var plate_val = "";
+  plate_val=$("#plate").val(); 
+  if (plate_val == "")
   {
-	  name_val = $("#search_results").html("");
+	  plate_val = $("#search_results").html("");
   } else{
-  if (validate_plate(name_val=$("#plate").val())){
-  $.ajax({url: '/searcher.php', data: {name : name_val},
+  if (validate_plate(plate_val=$("#plate").val())){
+  $.ajax({url: '/searcher.php', data: {plate : plate_val},
   success: (function(data){
    plateFound = false;
    if (data.length > 0){
-	   $("#search_results").html(data[0].name); 
-	   if (data[0].name == name_val)
+	   $("#search_results").html(data[0].plate); 
+	   if (data[0].plate == plate_val)
 	   {
 		   $("#search_results").html("☺");
 		   plateFound = true;
