@@ -3,12 +3,12 @@
 //INPUT
 
 // define variables and set to empty values
-$name = $gender = "";
+$plate "";
 
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $name = test_input($_POST["name"]);
+  $plate = test_input($_POST["plate"]);
 }
 
 function test_input($data) {
@@ -29,7 +29,7 @@ try {
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
-	$stmt = $conn->prepare("SELECT name, article FROM names WHERE name LIKE '%" . $name . "%'");
+	$stmt = $conn->prepare("SELECT plate FROM plate WHERE plate LIKE '%" . $plate . "%'");
     $stmt->execute();
 
     // set the resulting array to associative
